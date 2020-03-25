@@ -6,5 +6,15 @@
 
     <services>
 
+        <service id="SwagOrderMailDistributor\OrderMailDistributionDefinition">
+            <tag name="shopware.entity.definition"/>
+        </service>
+
+        <service id="SwagOrderMailDistributor\RuleMailListener">
+            <argument type="service" id="order_mail_distribution.repository"/>
+            <argument type="service" id="Shopware\Core\Content\MailTemplate\Service\MailService"/>
+            <tag name="kernel.event_subscriber"/>
+        </service>
+
     </services>
 </container>

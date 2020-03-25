@@ -1,6 +1,6 @@
 <?php
 
-namespace Shopware\Core;
+namespace SwagOrderMailDistributor;
 
 use Shopware\Core\Checkout\Cart\Event\CheckoutOrderPlacedEvent;
 use Shopware\Core\Content\MailTemplate\Service\MailServiceInterface;
@@ -21,6 +21,12 @@ class RuleMailListener implements EventSubscriberInterface
      * @var MailServiceInterface
      */
     private $mailService;
+
+    public function __construct(EntityRepositoryInterface $orderMailDistRepository, MailServiceInterface $mailService)
+    {
+        $this->mailService = $mailService;
+        $this->repository = $orderMailDistRepository;
+    }
 
     public static function getSubscribedEvents()
     {
