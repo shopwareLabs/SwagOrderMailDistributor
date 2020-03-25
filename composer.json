@@ -1,0 +1,18 @@
+{
+  "name": "swag/order-mail-distributor",
+  "description": "Skeleton plugin",
+  "type": "shopware-platform-plugin",
+  "license": "MIT",
+  "autoload": {
+    "psr-4": {
+      "SwagOrderMailDistributor\\": "src/"
+    }
+  },
+  "extra": {
+    "shopware-plugin-class": "SwagOrderMailDistributor\\SwagOrderMailDistributor",
+    "label": {
+      "de-DE": "Bestellungs-Mailverteiler",
+      "en-GB": "Order mail distributor"
+    }
+  }
+}
