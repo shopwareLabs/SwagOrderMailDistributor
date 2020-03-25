@@ -33,11 +33,11 @@ class OrderMailDistributionDefinition extends EntityDefinition
         return new FieldCollection([
             (new IdField('id', 'id'))->setFlags(new PrimaryKey(), new Required()),
 
-            new StringField('mail_to', 'mailTo'),
-            new BoolField('active', 'active'),
+            (new StringField('mail_to', 'mailTo'))->setFlags(new Required()),
+            (new BoolField('active', 'active'))->setFlags(new Required()),
 
-            new FkField('mail_template_id', 'mailTemplateId', MailTemplateDefinition::class),
-            new FkField('rule_id', 'ruleId', RuleDefinition::class),
+            (new FkField('mail_template_id', 'mailTemplateId', MailTemplateDefinition::class))->setFlags(new Required()),
+            (new FkField('rule_id', 'ruleId', RuleDefinition::class))->setFlags(new Required()),
 
             new ManyToOneAssociationField('mailTemplate', 'mail_template_id', MailTemplateDefinition::class, 'id'),
             new ManyToOneAssociationField('rule', 'rule_id', RuleDefinition::class, 'id'),

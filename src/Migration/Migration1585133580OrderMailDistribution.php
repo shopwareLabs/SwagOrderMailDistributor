@@ -18,11 +18,11 @@ class Migration1585133580OrderMailDistribution extends MigrationStep
             CREATE TABLE IF NOT EXISTS `order_mail_distribution` (
               `id` BINARY(16) NOT NULL,
               `active` TINYINT(1) NOT NULL DEFAULT 0,
-              `mail_to` VARCHAR(255) COLLATE utf8mb4_unicode_ci NULL,
+              `mail_to` VARCHAR(255) COLLATE utf8mb4_unicode_ci NOT NULL,
               `mail_template_id` BINARY(16) NOT NULL,
               `rule_id` BINARY(16) NOT NULL,
-              `created_at`  DATETIME(3)                             NOT NULL,
-              `updated_at`  DATETIME(3)                             NULL,
+              `created_at`  DATETIME(3) NOT NULL,
+              `updated_at`  DATETIME(3) NULL,
               PRIMARY KEY (`id`),
               CONSTRAINT `fk.order_mail_distribution.mail_template_id`
                 FOREIGN KEY (`id`) REFERENCES `mail_template` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
