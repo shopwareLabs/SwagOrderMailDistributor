@@ -1,0 +1,39 @@
+{
+  "global": {
+    "entities": {
+      "order_mail_distribution": "Bestellungs-Mailverteiler"
+    }
+  },
+  "swag-order-mail-distributor": {
+    "general": {
+      "mainMenuItemList": "Verteiler",
+      "mainMenuItemGeneral": "Verteiler",
+      "placeholderSearchBar": "Durchsuche alle Verteiler ..."
+    },
+    "list": {
+      "textDistributionOverview": "Verteiler",
+      "textTotalDistribution": "Keine Verteiler | Ein Verteiler | {count} Verteiler",
+      "buttonAddDistribution": "Verteiler anlegen",
+      "columnMailTo": "Verteiler",
+      "columnRule": "Regel",
+      "columnActive": "Aktiv",
+      "columnMail": "Mail"
+    },
+    "detail": {
+      "textHeadline": "Neuer Verteiler",
+      "textMediaSelection": "Medienauswahl",
+      "buttonCancel": "Abbrechen",
+      "buttonSave": "Speichern",
+      "cardTitleDistributionInfo": "Verteilerinformationen",
+      "titleSaveSuccess": "Erfolg",
+      "messageSaveSuccess": "Der Verteiler wurde erfolgreich gespeichert.",
+      "labelMailTo": "Empfänger",
+      "placeholderMailTo": "Gib einen Empfänger ein...",
+      "labelActive": "Aktiv",
+      "labelRule": "Regel",
+      "placeholderRule": "Die mail wird versendet wenn die Regel zutrifft",
+      "labelMailTemplate": "Mail",
+      "placeholderMailTemplate": "Wähle eine mail aus die verschickt werden soll"
+    }
+  }
+}

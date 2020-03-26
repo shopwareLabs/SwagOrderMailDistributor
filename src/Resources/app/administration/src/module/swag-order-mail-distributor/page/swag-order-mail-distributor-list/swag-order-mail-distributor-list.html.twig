@@ -1,0 +1,67 @@
+{% block swag_order_mail_distributor_list %}
+    <sw-page class="swag-order-mail-distributor-list">
+        {% block swag_order_mail_distributor_list_search_bar %}
+            <template #search-bar>
+                <sw-search-bar initialSearchType="order_mail_distribution"
+                               :initialSearch="term"
+                               @search="onSearch">
+                </sw-search-bar>
+            </template>
+        {% endblock %}
+
+        {% block swag_order_mail_distributor_list_smart_bar_header %}
+            <template #smart-bar-header>
+                {% block swag_order_mail_distributor_list_smart_bar_header_title %}
+                    <h2>
+                        {% block swag_order_mail_distributor_list_smart_bar_header_title_text %}
+                            {{ $tc('swag-order-mail-distributor.list.textDistributionOverview') }}
+                        {% endblock %}
+
+                        {% block swag_order_mail_distributor_list_smart_bar_header_amount %}
+                            <span v-if="!isLoading" class="sw-page__smart-bar-amount">
+                                ({{ total }})
+                            </span>
+                        {% endblock %}
+                    </h2>
+                {% endblock %}
+            </template>
+        {% endblock %}
+
+        {% block swag_order_mail_distributor_list_actions %}
+            <template #smart-bar-actions>
+                {% block swag_order_mail_distributor_list_smart_bar_actions %}
+                    <sw-button :routerLink="{ name: 'swag.order.mail.distributor.create' }" variant="primary">
+                        {{ $tc('swag-order-mail-distributor.list.buttonAddDistribution') }}
+                    </sw-button>
+                {% endblock %}
+            </template>
+        {% endblock %}
+
+        <template #content>
+            {% block swag_order_mail_distributor_list_content %}
+                <div class="swag-order-mail-distributor-list__content">
+                    {% block swag_order_mail_distributor_list_grid %}
+                        <sw-entity-listing
+                            :isLoading="!distributions"
+                            :columns="distributionColumns"
+                            :repository="distributionRepository"
+                            detailRoute="swag.order.mail.distributor.detail"
+                            :items="distributions"
+                             @update-records="updateTotal">
+                    {% endblock %}
+
+                        <template #column-active="{ item, isInlineEdit }">
+                            <sw-icon v-if="item.active" name="small-default-checkmark-line-medium" small class="is--active"></sw-icon>
+                            <sw-icon v-else name="small-default-x-line-medium" small class="is--inactive"></sw-icon>
+                        </template>
+
+                        {% block swag_order_mail_distributor_list_grid_loader %}
+                            <sw-loader v-if="isLoading"></sw-loader>
+                        {% endblock %}
+                        </sw-entity-listing>
+                </div>
+            {% endblock %}
+
+        </template>
+    </sw-page>
+{% endblock %}
