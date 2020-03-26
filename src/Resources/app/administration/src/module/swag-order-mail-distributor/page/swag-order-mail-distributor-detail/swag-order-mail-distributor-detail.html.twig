@@ -1,0 +1,83 @@
+{% block swag_order_mail_distributor_detail %}
+    <sw-page class="swag-order-mail-distributor-detail">
+
+        {% block swag_order_mail_distributor_detail_header %}
+            <template #smart-bar-header>
+                <h2>{{ placeholder(distribution, 'name', $tc('swag-order-mail-distributor.detail.textHeadline')) }}</h2>
+            </template>
+        {% endblock %}
+
+        {% block swag_order_mail_distributor_detail_actions %}
+            <template #smart-bar-actions>
+
+                {% block swag_order_mail_distributor_detail_actions_abort %}
+                    <sw-button :disabled="distributionIsLoading" v-tooltip.bottom="tooltipCancel" @click="onCancel">
+                        {{ $tc('swag-order-mail-distributor.detail.buttonCancel') }}
+                    </sw-button>
+                {% endblock %}
+
+                {% block swag_order_mail_distributor_detail_actions_save %}
+                    <sw-button-process
+                            class="swag-order-mail-distributor-detail__save-action"
+                            :isLoading="isLoading"
+                            v-model="isSaveSuccessful"
+                            :disabled="isLoading"
+                            variant="primary"
+                            v-tooltip.bottom="tooltipSave"
+                            @click.prevent="onSave">
+                        {{ $tc('swag-order-mail-distributor.detail.buttonSave') }}
+                    </sw-button-process>
+                {% endblock %}
+
+            </template>
+        {% endblock %}
+
+        {% block swag_order_mail_distributor_detail_content %}
+            <sw-card-view slot="content">
+                {% block swag_order_mail_distributor_detail_base_basic_info_card %}
+                    <sw-card :title="$tc('swag-order-mail-distributor.detail.cardTitleDistributionInfo')" :isLoading="distributionIsLoading">
+                        <template v-if="!distributionIsLoading">
+                            <sw-container columns="repeat(auto-fit, minmax(250px, 1fr)" gap="0 30px">
+                                <sw-field type="text"
+                                    :label="$tc('swag-order-mail-distributor.detail.labelMailTo')"
+                                    :placeholder="placeholder(distribution, 'mailTo', $tc('swag-order-mail-distributor.detail.placeholderMailTo'))"
+                                    name="mailTo"
+                                    validation="required"
+                                    required
+                                    :error="distributionMailToError"
+                                    v-model="distribution.mailTo">
+                                </sw-field>
+
+
+                                <sw-field
+                                    type="switch"
+                                    :label="$tc('swag-order-mail-distributor.detail.labelActive')"
+                                    v-model="distribution.active">
+                                </sw-field>
+                            </sw-container>
+
+                            <sw-entity-single-select
+                                entity="rule"
+                                :label="$tc('swag-order-mail-distributor.detail.labelRule')"
+                                :placeholder="placeholder(distribution, 'mailTo', $tc('swag-order-mail-distributor.detail.placeholderRule'))"
+                                v-model="distribution.ruleId"
+                                required>
+
+                            </sw-entity-single-select>
+
+                            <sw-fix-entity-single-select
+                                entity="mail_template"
+                                :criteria="mailTemplateCriteria"
+                                :label="$tc('swag-order-mail-distributor.detail.labelMailTemplate')"
+                                :placeholder="placeholder(distribution, 'mailTo', $tc('swag-order-mail-distributor.detail.placeholderMailTemplate'))"
+                                v-model="distribution.mailTemplateId"
+                                labelProperty="mailTemplateType.name"
+                                required>
+                            </sw-fix-entity-single-select>
+                        </template>
+                    </sw-card>
+                {% endblock %}
+            </sw-card-view>
+        {% endblock %}
+    </sw-page>
+{% endblock %}

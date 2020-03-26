@@ -1,0 +1,39 @@
+{
+  "global": {
+    "entities": {
+      "order_mail_distribution": "Order mail distribution"
+    }
+  },
+  "swag-order-mail-distributor": {
+    "general": {
+      "mainMenuItemList": "Distributions",
+      "mainMenuItemGeneral": "Distributions",
+      "placeholderSearchBar": "Search distributions..."
+    },
+    "list": {
+      "textDistributionOverview": "Distributions",
+      "textTotalDistribution": "No distributions | One distribution | {count} distributions",
+      "buttonAddDistribution": "Add distribution",
+      "columnMailTo": "Recipient",
+      "columnRule": "Rule",
+      "columnActive": "Active",
+      "columnMail": "Mail"
+    },
+    "detail": {
+      "textHeadline": "New distribution",
+      "textMediaSelection": "Media selection",
+      "buttonCancel": "Cancel",
+      "buttonSave": "Save",
+      "cardTitleDistributionInfo": "Distribution information",
+      "titleSaveSuccess": "Success",
+      "messageSaveSuccess": "Distribution \"{name}\" has been saved.",
+      "labelMailTo": "Recipient",
+      "placeholderMailTo": "Enter a recipient...",
+      "labelActive": "Active",
+      "labelRule": "Rule",
+      "placeholderRule": "Send mail if this rule matches",
+      "labelMailTemplate": "Mail",
+      "placeholderMailTemplate": "Send this mail to recipient"
+    }
+  }
+}
