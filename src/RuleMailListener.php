@@ -4,6 +4,7 @@ namespace SwagOrderMailDistributor;
 
 use Shopware\Core\Checkout\Cart\Event\CheckoutOrderPlacedEvent;
 use Shopware\Core\Content\MailTemplate\Service\MailServiceInterface;
+use Shopware\Core\Framework\Context;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepositoryInterface;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsAnyFilter;
@@ -22,10 +23,20 @@ class RuleMailListener implements EventSubscriberInterface
      */
     private $mailService;
 
-    public function __construct(EntityRepositoryInterface $orderMailDistRepository, MailServiceInterface $mailService)
+    /**
+     * @var MailTemplateLoader
+     */
+    private $mailTemplateLoader;
+
+    public function __construct(
+        EntityRepositoryInterface $orderMailDistRepository,
+        MailServiceInterface $mailService,
+        MailTemplateLoader $mailTemplateLoader
+    )
     {
         $this->mailService = $mailService;
         $this->repository = $orderMailDistRepository;
+        $this->mailTemplateLoader = $mailTemplateLoader;
     }
 
     public static function getSubscribedEvents()
@@ -47,13 +58,33 @@ class RuleMailListener implements EventSubscriberInterface
         $criteria->addFilter(new EqualsAnyFilter('ruleId', $context->getRuleIds()));
         $criteria->addFilter(new EqualsFilter('active', true));
 
-        $mails = $this->repository->search($criteria, $context);
+        $distributions = $this->repository->search($criteria, $context);
 
-//        foreach ($mails as $mail) {
-//            $this->mailService->send(
-//                $mail->getMailTemplateId(),
-//                $mail->getTo()
-//            );
-//        }
+        /** @var OrderMailDistributionEntity $distribution */
+        foreach ($distributions as $distribution) {
+            $this->send($event, $distribution, $context);
+        }
+    }
+
+    private function send(CheckoutOrderPlacedEvent $event, OrderMailDistributionEntity $distribution, Context $context): void
+    {
+        $template = $this->mailTemplateLoader->get(
+            $distribution->getMailTemplateTypeId(),
+            $context,
+            $event->getSalesChannelId()
+        );
+
+        if (!$template) {
+            // log error
+            return;
+        }
+
+        $data = MailTemplateDataBag::createFromEntity($template, [$distribution->getMailTo() => $distribution->getMailTo()], $event->getSalesChannelId());
+
+        $this->mailService->send(
+            $data->all(),
+            $context,
+            ['order' => $event->getOrder()]
+        );
     }
 }

@@ -27,7 +27,6 @@ Component.register('swag-order-mail-distributor-detail', {
         }
     },
 
-
     data() {
         return {
             distribution: null,
@@ -70,12 +69,6 @@ Component.register('swag-order-mail-distributor-detail', {
                 message: 'ESC',
                 appearance: 'light'
             };
-        },
-
-        mailTemplateCriteria() {
-            const criteria = new Criteria();
-            criteria.addAssociation('mailTemplateType');
-            return criteria;
         },
 
         ...mapPropertyErrors('distribution', ['mailTo'])

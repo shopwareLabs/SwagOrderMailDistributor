@@ -44,8 +44,8 @@ Component.register('swag-order-mail-distributor-list', {
                 allowResize: true,
                 label: 'swag-order-mail-distributor.list.columnRule'
             },{
-                property: 'mailTemplate.mailTemplateType.name',
-                dataIndex: 'mailTemplate.mailTemplateType.name',
+                property: 'mailTemplateType.name',
+                dataIndex: 'mailTemplateType.name',
                 allowResize: true,
                 label: 'swag-order-mail-distributor.list.columnMail'
             }, {
@@ -69,7 +69,7 @@ Component.register('swag-order-mail-distributor-list', {
             criteria.addSorting(Criteria.sort(params.sortBy, params.sortDirection));
 
             criteria.addAssociation('rule');
-            criteria.addAssociation('mailTemplate.mailTemplateType');
+            criteria.addAssociation('mailTemplateType');
 
             return criteria;
         }
