@@ -25,7 +25,9 @@ class Migration1585133580OrderMailDistribution extends MigrationStep
               `updated_at`  DATETIME(3) NULL,
               PRIMARY KEY (`id`),
               CONSTRAINT `fk.order_mail_distribution.mail_template_id`
-                FOREIGN KEY (`mail_template_id`) REFERENCES `mail_template` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE
+                FOREIGN KEY (`mail_template_id`) REFERENCES `mail_template` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
+              CONSTRAINT `fk.order_mail_distribution.rule_id`
+                FOREIGN KEY (`rule_id`) REFERENCES `rule` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
         ');
     }
