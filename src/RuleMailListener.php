@@ -3,7 +3,7 @@
 namespace SwagOrderMailDistributor;
 
 use Shopware\Core\Checkout\Cart\Event\CheckoutOrderPlacedEvent;
-use Shopware\Core\Content\MailTemplate\Service\MailServiceInterface;
+use Shopware\Core\Content\MailTemplate\Service\MailService;
 use Shopware\Core\Framework\Context;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepositoryInterface;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
@@ -19,7 +19,7 @@ class RuleMailListener implements EventSubscriberInterface
     private $repository;
 
     /**
-     * @var MailServiceInterface
+     * @var MailService
      */
     private $mailService;
 
@@ -30,7 +30,7 @@ class RuleMailListener implements EventSubscriberInterface
 
     public function __construct(
         EntityRepositoryInterface $orderMailDistRepository,
-        MailServiceInterface $mailService,
+        MailService $mailService,
         MailTemplateLoader $mailTemplateLoader
     )
     {
