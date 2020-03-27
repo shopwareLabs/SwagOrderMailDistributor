@@ -1,7 +1,7 @@
 import template from './swag-order-mail-distributor-detail.html.twig';
 
 const { Component, Mixin, Data: { Criteria } } = Shopware;
-const { mapPropertyErrors } = Shopware.Component.getComponentHelper();
+const { mapApiErrors } = Shopware.Component.getComponentHelper();
 
 Component.register('swag-order-mail-distributor-detail', {
     template,
@@ -71,7 +71,7 @@ Component.register('swag-order-mail-distributor-detail', {
             };
         },
 
-        ...mapPropertyErrors('distribution', ['mailTo'])
+        ...mapApiErrors('distribution', ['mailTo'])
     },
 
     watch: {
