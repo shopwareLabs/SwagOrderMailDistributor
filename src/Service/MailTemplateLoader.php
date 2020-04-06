@@ -1,6 +1,11 @@
-<?php
+<?php declare(strict_types=1);
+/*
+ * (c) shopware AG <info@shopware.com>
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 
-namespace SwagOrderMailDistributor;
+namespace Swag\OrderMailDistributor\Service;
 
 use Shopware\Core\Content\MailTemplate\MailTemplateEntity;
 use Shopware\Core\Framework\Context;
@@ -8,7 +13,7 @@ use Shopware\Core\Framework\DataAbstractionLayer\EntityRepositoryInterface;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
 
-class MailTemplateLoader
+class MailTemplateLoader implements MailTemplateLoaderInterface
 {
     /**
      * @var EntityRepositoryInterface
@@ -44,7 +49,7 @@ class MailTemplateLoader
         $criteria->addFilter(new EqualsFilter('mailTemplateTypeId', $typeId));
         $criteria->setLimit(1);
 
-        /** @var MailTemplateEntity|null $mailTemplate */
+        /* @var MailTemplateEntity|null $mailTemplate */
         return $this->repository->search($criteria, $context)->first();
     }
 }

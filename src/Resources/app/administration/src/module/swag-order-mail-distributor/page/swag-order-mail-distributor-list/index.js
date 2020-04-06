@@ -27,7 +27,7 @@ Component.register('swag-order-mail-distributor-list', {
 
     computed: {
         distributionRepository() {
-            return this.repositoryFactory.create('order_mail_distribution');
+            return this.repositoryFactory.create('swag_order_mail_distribution');
         },
 
         distributionColumns() {
@@ -43,7 +43,7 @@ Component.register('swag-order-mail-distributor-list', {
                 dataIndex: 'rule.name',
                 allowResize: true,
                 label: 'swag-order-mail-distributor.list.columnRule'
-            },{
+            }, {
                 property: 'mailTemplateType.name',
                 dataIndex: 'mailTemplateType.name',
                 allowResize: true,

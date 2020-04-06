@@ -1,15 +1,30 @@
 {
   "name": "swag/order-mail-distributor",
-  "description": "Skeleton plugin",
+  "description": "Order mail distributor for Shopware 6",
+  "version": "0.9.0",
   "type": "shopware-platform-plugin",
   "license": "MIT",
+  "authors": [
+      {
+          "name": "shopware AG"
+      }
+  ],
+  "require": {
+      "shopware/core": "~6.1.5",
+      "shopware/administration": "~6.1.5"
+  },
   "autoload": {
     "psr-4": {
-      "SwagOrderMailDistributor\\": "src/"
+      "Swag\\OrderMailDistributor\\": "src/"
     }
   },
+  "autoload-dev": {
+      "psr-4": {
+          "Swag\\OrderMailDistributor\\Test\\": "tests/"
+      }
+  },
   "extra": {
-    "shopware-plugin-class": "SwagOrderMailDistributor\\SwagOrderMailDistributor",
+    "shopware-plugin-class": "Swag\\OrderMailDistributor\\SwagOrderMailDistributor",
     "label": {
       "de-DE": "Bestellungs-Mailverteiler",
       "en-GB": "Order mail distributor"

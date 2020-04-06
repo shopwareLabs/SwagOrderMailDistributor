@@ -1,0 +1,5 @@
+.idea/
+coverage/
+.phpunit.result.cache
+/vendor/
+phpstan.neon

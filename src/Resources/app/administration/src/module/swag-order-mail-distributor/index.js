@@ -10,8 +10,8 @@ Module.register('swag-order-mail-distributor', {
     description: 'Manages the distribution of the application',
     version: '1.0.0',
     targetVersion: '1.0.0',
-    color: '#57D9A3',
-    icon: 'default-symbol-products',
+    color: '#A092F0',
+    icon: 'default-shopping-paper-bag',
     favicon: 'icon-module-products.png',
     entity: 'order_mail_distribution',
 

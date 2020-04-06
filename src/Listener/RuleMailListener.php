@@ -1,6 +1,11 @@
-<?php
+<?php declare(strict_types=1);
+/*
+ * (c) shopware AG <info@shopware.com>
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 
-namespace SwagOrderMailDistributor;
+namespace Swag\OrderMailDistributor\Listener;
 
 use Shopware\Core\Checkout\Cart\Event\CheckoutOrderPlacedEvent;
 use Shopware\Core\Content\MailTemplate\Service\MailService;
@@ -9,6 +14,8 @@ use Shopware\Core\Framework\DataAbstractionLayer\EntityRepositoryInterface;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsAnyFilter;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
+use Swag\OrderMailDistributor\OrderMailDistribution\OrderMailDistributionEntity;
+use Swag\OrderMailDistributor\Service\MailTemplateLoader;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class RuleMailListener implements EventSubscriberInterface
@@ -32,8 +39,7 @@ class RuleMailListener implements EventSubscriberInterface
         EntityRepositoryInterface $orderMailDistRepository,
         MailService $mailService,
         MailTemplateLoader $mailTemplateLoader
-    )
-    {
+    ) {
         $this->mailService = $mailService;
         $this->repository = $orderMailDistRepository;
         $this->mailTemplateLoader = $mailTemplateLoader;
@@ -42,11 +48,11 @@ class RuleMailListener implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            CheckoutOrderPlacedEvent::class => 'orderPlaced'
+            CheckoutOrderPlacedEvent::class => 'orderPlaced',
         ];
     }
 
-    public function orderPlaced(CheckoutOrderPlacedEvent $event)
+    public function orderPlaced(CheckoutOrderPlacedEvent $event): void
     {
         $context = $event->getContext();
 
