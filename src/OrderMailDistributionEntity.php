@@ -2,6 +2,7 @@
 
 namespace SwagOrderMailDistributor;
 
+use Shopware\Core\Content\MailTemplate\Aggregate\MailTemplateType\MailTemplateTypeEntity;
 use Shopware\Core\Content\Rule\RuleEntity;
 use Shopware\Core\Framework\DataAbstractionLayer\Entity;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityIdTrait;
@@ -13,12 +14,12 @@ class OrderMailDistributionEntity extends Entity
     /**
      * @var string|null
      */
-    protected $mailTemplateId;
+    protected $mailTemplateTypeId;
 
     /**
-     * @var MailTemplateEntity|null
+     * @var MailTemplateTypeEntity|null
      */
-    protected $mailTemplate;
+    protected $mailTemplateType;
 
     /**
      * @var string|null
@@ -40,27 +41,25 @@ class OrderMailDistributionEntity extends Entity
      */
     protected $active;
 
-
-    public function getMailTemplate(): ?MailTemplateEntity
+    public function getMailTemplateType(): ?MailTemplateTypeEntity
     {
-        return $this->mailTemplate;
+        return $this->mailTemplateType;
     }
 
-    public function setMailTemplateType(MailTemplateEntity $mailTemplate): void
+    public function setMailTemplateTypeType(MailTemplateTypeEntity $mailTemplateType): void
     {
-        $this->mailTemplate = $mailTemplate;
+        $this->mailTemplateType = $mailTemplateType;
     }
 
-    public function getMailTemplateId(): ?string
+    public function getMailTemplateTypeId(): ?string
     {
-        return $this->mailTemplate;
+        return $this->mailTemplateTypeId;
     }
 
-    public function setMailTemplateId(?string $mailTemplateId): void
+    public function setMailTemplateTypeId(?string $mailTemplateTypeId): void
     {
-        $this->mailTemplateId = $mailTemplateId;
+        $this->mailTemplateTypeId = $mailTemplateTypeId;
     }
-
 
     public function getApiAlias(): string
     {

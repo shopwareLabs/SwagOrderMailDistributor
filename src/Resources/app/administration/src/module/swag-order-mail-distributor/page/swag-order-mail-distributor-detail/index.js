@@ -1,7 +1,7 @@
 import template from './swag-order-mail-distributor-detail.html.twig';
 
 const { Component, Mixin, Data: { Criteria } } = Shopware;
-const { mapPropertyErrors } = Shopware.Component.getComponentHelper();
+const { mapApiErrors } = Shopware.Component.getComponentHelper();
 
 Component.register('swag-order-mail-distributor-detail', {
     template,
@@ -26,7 +26,6 @@ Component.register('swag-order-mail-distributor-detail', {
             default: null
         }
     },
-
 
     data() {
         return {
@@ -72,13 +71,7 @@ Component.register('swag-order-mail-distributor-detail', {
             };
         },
 
-        mailTemplateCriteria() {
-            const criteria = new Criteria();
-            criteria.addAssociation('mailTemplateType');
-            return criteria;
-        },
-
-        ...mapPropertyErrors('distribution', ['mailTo'])
+        ...mapApiErrors('distribution', ['mailTo'])
     },
 
     watch: {

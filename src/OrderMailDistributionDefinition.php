@@ -2,7 +2,7 @@
 
 namespace SwagOrderMailDistributor;
 
-use Shopware\Core\Content\MailTemplate\MailTemplateDefinition;
+use Shopware\Core\Content\MailTemplate\Aggregate\MailTemplateType\MailTemplateTypeDefinition;
 use Shopware\Core\Content\Rule\RuleDefinition;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityDefinition;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\BoolField;
@@ -36,10 +36,10 @@ class OrderMailDistributionDefinition extends EntityDefinition
             (new StringField('mail_to', 'mailTo'))->setFlags(new Required()),
             (new BoolField('active', 'active'))->setFlags(new Required()),
 
-            (new FkField('mail_template_id', 'mailTemplateId', MailTemplateDefinition::class))->setFlags(new Required()),
+            (new FkField('mail_template_type_id', 'mailTemplateTypeId', MailTemplateTypeDefinition::class))->setFlags(new Required()),
             (new FkField('rule_id', 'ruleId', RuleDefinition::class))->setFlags(new Required()),
 
-            new ManyToOneAssociationField('mailTemplate', 'mail_template_id', MailTemplateDefinition::class, 'id'),
+            new ManyToOneAssociationField('mailTemplateType', 'mail_template_type_id', MailTemplateTypeDefinition::class, 'id'),
             new ManyToOneAssociationField('rule', 'rule_id', RuleDefinition::class, 'id'),
         ]);
     }

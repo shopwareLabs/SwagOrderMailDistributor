@@ -1,6 +1,5 @@
 import './page/swag-order-mail-distributor-list';
 import './page/swag-order-mail-distributor-detail';
-import './core-fix/sw-fix-entity-single-select';
 
 const { Module } = Shopware;
 

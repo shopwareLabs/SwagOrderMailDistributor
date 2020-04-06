@@ -65,15 +65,14 @@
 
                             </sw-entity-single-select>
 
-                            <sw-fix-entity-single-select
-                                entity="mail_template"
-                                :criteria="mailTemplateCriteria"
+                            <sw-entity-single-select
+                                entity="mail_template_type"
                                 :label="$tc('swag-order-mail-distributor.detail.labelMailTemplate')"
-                                :placeholder="placeholder(distribution, 'mailTo', $tc('swag-order-mail-distributor.detail.placeholderMailTemplate'))"
-                                v-model="distribution.mailTemplateId"
-                                labelProperty="mailTemplateType.name"
+                                :placeholder="placeholder(distribution, 'mailTemplateTypeId', $tc('swag-order-mail-distributor.detail.placeholderMailTemplate'))"
+                                v-model="distribution.mailTemplateTypeId"
+                                labelProperty="name"
                                 required>
-                            </sw-fix-entity-single-select>
+                            </sw-entity-single-select>
                         </template>
                     </sw-card>
                 {% endblock %}
