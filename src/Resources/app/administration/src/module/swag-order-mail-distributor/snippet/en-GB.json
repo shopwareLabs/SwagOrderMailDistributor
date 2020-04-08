@@ -1,7 +1,7 @@
 {
   "global": {
     "entities": {
-      "order_mail_distribution": "Order mail distribution"
+      "order_mail_distribution": "Order Mail Distribution"
     }
   },
   "swag-order-mail-distributor": {
@@ -31,9 +31,9 @@
       "placeholderMailTo": "Enter a recipient...",
       "labelActive": "Active",
       "labelRule": "Rule",
-      "placeholderRule": "Send mail if this rule matches",
+      "placeholderRule": "Send e-mail if this rule matches",
       "labelMailTemplate": "Mail",
-      "placeholderMailTemplate": "Send this mail to recipient"
+      "placeholderMailTemplate": "Send this e-mail to recipient"
     }
   }
 }

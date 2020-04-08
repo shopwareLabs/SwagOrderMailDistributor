@@ -1,7 +1,7 @@
 {
   "global": {
     "entities": {
-      "order_mail_distribution": "Bestellungs-Mailverteiler"
+      "order_mail_distribution": "Mail-Verteiler"
     }
   },
   "swag-order-mail-distributor": {
@@ -26,14 +26,14 @@
       "buttonSave": "Speichern",
       "cardTitleDistributionInfo": "Verteilerinformationen",
       "titleSaveSuccess": "Erfolg",
-      "messageSaveSuccess": "Der Verteiler wurde erfolgreich gespeichert.",
+      "messageSaveSuccess": "Der Verteiler \"{name}\" wurde erfolgreich gespeichert.",
       "labelMailTo": "Empfänger",
       "placeholderMailTo": "Gib einen Empfänger ein...",
       "labelActive": "Aktiv",
       "labelRule": "Regel",
-      "placeholderRule": "Die mail wird versendet wenn die Regel zutrifft",
+      "placeholderRule": "Die E-Mail wird versendet wenn die Regel zutrifft",
       "labelMailTemplate": "Mail",
-      "placeholderMailTemplate": "Wähle eine mail aus die verschickt werden soll"
+      "placeholderMailTemplate": "Wähle eine E-Mail aus die verschickt werden soll"
     }
   }
 }
