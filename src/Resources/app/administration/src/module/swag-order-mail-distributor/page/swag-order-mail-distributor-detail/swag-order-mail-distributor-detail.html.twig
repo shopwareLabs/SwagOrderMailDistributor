@@ -3,7 +3,7 @@
 
         {% block swag_order_mail_distributor_detail_header %}
             <template #smart-bar-header>
-                <h2>{{ placeholder(distribution, 'name', $tc('swag-order-mail-distributor.detail.textHeadline')) }}</h2>
+                <h2>{{ placeholder(distribution, 'mailTo', $tc('swag-order-mail-distributor.detail.textHeadline')) }}</h2>
             </template>
         {% endblock %}
 
@@ -69,6 +69,7 @@
                                 entity="mail_template_type"
                                 :label="$tc('swag-order-mail-distributor.detail.labelMailTemplate')"
                                 :placeholder="placeholder(distribution, 'mailTemplateTypeId', $tc('swag-order-mail-distributor.detail.placeholderMailTemplate'))"
+                                :criteria="createTemplateTypeCriteria()"
                                 v-model="distribution.mailTemplateTypeId"
                                 labelProperty="name"
                                 required>

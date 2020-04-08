@@ -1,6 +1,11 @@
 <?php declare(strict_types=1);
+/*
+ * (c) shopware AG <info@shopware.com>
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 
-namespace SwagOrderMailDistributor;
+namespace Swag\OrderMailDistributor\OrderMailDistribution;
 
 use Shopware\Core\Content\MailTemplate\Aggregate\MailTemplateType\MailTemplateTypeDefinition;
 use Shopware\Core\Content\Rule\RuleDefinition;
@@ -16,7 +21,7 @@ use Shopware\Core\Framework\DataAbstractionLayer\FieldCollection;
 
 class OrderMailDistributionDefinition extends EntityDefinition
 {
-    public const ENTITY_NAME = 'order_mail_distribution';
+    public const ENTITY_NAME = 'swag_order_mail_distribution';
 
     public function getEntityName(): string
     {

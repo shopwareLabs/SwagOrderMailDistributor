@@ -1,0 +1,76 @@
+variables:
+    DOCKER_DRIVER: overlay2
+    DOCKER_HOST: "tcp://docker:2375"
+    MYSQL_ROOT_PASSWORD: app
+    WEB_DOCUMENT_ROOT: $CI_PROJECT_DIR/development/public
+
+stages:
+    - Static analyzes
+    - PHPUnit
+
+default:
+    image: shopware/development:latest
+    before_script:
+        - zip -rq plugin.zip .
+        - git clone http://gitlab-ci-token:${CI_JOB_TOKEN}@gitlab.shopware.com/shopware/6/product/development.git --branch 6.1
+        - rm -rf development/platform
+        - git clone http://gitlab-ci-token:${CI_JOB_TOKEN}@gitlab.shopware.com/shopware/6/product/platform.git development/platform --branch 6.1
+        - unzip -q plugin.zip -d development/custom/plugins/SwagOrderMailDistributor
+        - cd development
+        - cp -v dev-ops/gitlab/.psh.yaml.override .
+        - /entrypoint supervisord > /dev/null 2>&1 &
+
+# Stage: Static analyzes
+Static analyze:
+    stage: Static analyzes
+    services:
+        -   name: mysql:5.7
+            alias: mysql
+    script:
+        - ./psh.phar init
+        - php bin/console plugin:install --activate SwagOrderMailDistributor
+        - cd $CI_PROJECT_DIR/development/custom/plugins/SwagOrderMailDistributor
+        - bin/static-analyze.sh
+        - cd $CI_PROJECT_DIR/development
+        - php dev-ops/analyze/vendor/bin/php-cs-fixer fix --config=vendor/shopware/platform/.php_cs.dist --dry-run -vvv --allow-risky=yes --format=junit custom/plugins/SwagOrderMailDistributor | tee php-cs-fixer.xml
+        - ./psh.phar administration:init --APP_ENV="dev"
+        - cd $CI_PROJECT_DIR/development/custom/plugins/SwagOrderMailDistributor
+        - ./../../../vendor/shopware/platform/src/Administration/Resources/app/administration/node_modules/.bin/eslint --ignore-path .eslintignore --config ../../../vendor/shopware/platform/src/Administration/Resources/app/administration/.eslintrc.js --ext .js,.vue .
+    artifacts:
+        reports:
+            junit: development/php-cs-fixer.xml
+
+# Stage: PHPUnit
+.phpunit_base:
+    stage: PHPUnit
+    needs: [Static analyze]
+    services:
+        -   name: mysql:5.7
+            alias: mysql
+        -   name: elastic/elasticsearch:7.1.1
+            alias: elasticsearch
+            command: [ "bin/elasticsearch", "-Expack.security.enabled=false", "-Ediscovery.type=single-node" ]
+    script:
+        - ./psh.phar init
+        - php bin/console plugin:install --activate SwagOrderMailDistributor
+        - composer dump-autoload -d custom/plugins/SwagOrderMailDistributor
+        - ./psh.phar init-test-databases
+        - php -d pcov.enabled=1 -d pcov.directory=$CI_PROJECT_DIR
+            vendor/bin/phpunit
+            --configuration custom/plugins/SwagOrderMailDistributor/phpunit.xml.dist
+            --log-junit build/artifacts/phpunit.junit.xml
+            --colors=never
+            --coverage-clover build/artifacts/phpunit.clover.xml
+            --coverage-html build/artifacts/phpunit-coverage-html
+            --coverage-text
+
+    coverage: '/^\s*Lines:\s*(\d+(?:\.\d+)?%)/'
+    artifacts:
+        paths:
+            - development/build/artifacts/phpunit.clover.xml
+        reports:
+            junit: development/build/artifacts/phpunit.junit.xml
+
+MySQL 5.7:
+    extends: .phpunit_base
+    stage: PHPUnit

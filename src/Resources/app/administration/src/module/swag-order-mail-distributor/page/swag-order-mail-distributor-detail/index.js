@@ -1,6 +1,7 @@
 import template from './swag-order-mail-distributor-detail.html.twig';
 
-const { Component, Mixin, Data: { Criteria } } = Shopware;
+const { Criteria } = Shopware.Data;
+const { Component, Mixin } = Shopware;
 const { mapApiErrors } = Shopware.Component.getComponentHelper();
 
 Component.register('swag-order-mail-distributor-detail', {
@@ -52,7 +53,7 @@ Component.register('swag-order-mail-distributor-detail', {
         },
 
         distributionRepository() {
-            return this.repositoryFactory.create('order_mail_distribution');
+            return this.repositoryFactory.create('swag_order_mail_distribution');
         },
 
         tooltipSave() {
@@ -92,6 +93,13 @@ Component.register('swag-order-mail-distributor-detail', {
             }
 
             this.distribution = this.distributionRepository.create(Shopware.Context.api);
+        },
+
+        createTemplateTypeCriteria() {
+            const criteria = new Criteria();
+            criteria.addFilter(Criteria.equals('technicalName', 'order_confirmation_mail'));
+
+            return criteria;
         },
 
         loadEntityData() {
