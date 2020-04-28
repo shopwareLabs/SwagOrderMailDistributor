@@ -209,6 +209,7 @@ class RuleMailListenerTest extends TestCase
     private function getOrderEntity(): OrderEntity
     {
         $order = new OrderEntity();
+        $order->setId(Uuid::randomHex());
         $order->setOrderNumber('testing');
         $order->setOrderDateTime(new \DateTime());
         $order->setAmountNet(100);
