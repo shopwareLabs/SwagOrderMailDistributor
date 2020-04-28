@@ -72,7 +72,7 @@ Component.register('swag-order-mail-distributor-detail', {
             };
         },
 
-        ...mapApiErrors('distribution', ['mailTo'])
+        ...mapApiErrors('distribution', ['mailTo', 'ruleId', 'mailTemplateTypeId'])
     },
 
     watch: {
@@ -93,6 +93,7 @@ Component.register('swag-order-mail-distributor-detail', {
             }
 
             this.distribution = this.distributionRepository.create(Shopware.Context.api);
+            this.distribution.active = false;
         },
 
         createTemplateTypeCriteria() {
@@ -123,16 +124,14 @@ Component.register('swag-order-mail-distributor-detail', {
                 }
 
                 this.loadEntityData();
-            }).catch((exception) => {
+            }).catch(() => {
                 this.isLoading = false;
-                const distributionName = this.distribution.name || this.distribution.translated.name;
                 this.createNotificationError({
                     title: this.$tc('global.default.error'),
                     message: this.$tc(
-                        'global.notification.notificationSaveErrorMessage', 0, { entityName: distributionName }
+                        'global.notification.notificationSaveErrorMessage', 0, { entityName: this.distribution.mailTo }
                     )
                 });
-                throw exception;
             });
         },
 
