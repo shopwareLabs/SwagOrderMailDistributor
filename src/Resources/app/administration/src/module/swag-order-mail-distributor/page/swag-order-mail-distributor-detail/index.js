@@ -72,7 +72,7 @@ Component.register('swag-order-mail-distributor-detail', {
             };
         },
 
-        ...mapPropertyErrors('distribution', ['mailTo'])
+        ...mapPropertyErrors('distribution', ['mailTo', 'ruleId', 'mailTemplateTypeId'])
     },
 
     watch: {
@@ -93,6 +93,7 @@ Component.register('swag-order-mail-distributor-detail', {
             }
 
             this.distribution = this.distributionRepository.create(Shopware.Context.api);
+            this.distribution.active = false;
         },
 
         createTemplateTypeCriteria() {

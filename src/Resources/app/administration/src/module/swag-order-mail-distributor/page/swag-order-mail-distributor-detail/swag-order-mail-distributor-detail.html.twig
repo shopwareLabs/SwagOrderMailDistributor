@@ -60,6 +60,7 @@
                                 entity="rule"
                                 :label="$tc('swag-order-mail-distributor.detail.labelRule')"
                                 :placeholder="placeholder(distribution, 'mailTo', $tc('swag-order-mail-distributor.detail.placeholderRule'))"
+                                :error="distributionRuleIdError"
                                 v-model="distribution.ruleId"
                                 required>
 
@@ -70,6 +71,7 @@
                                 :label="$tc('swag-order-mail-distributor.detail.labelMailTemplate')"
                                 :placeholder="placeholder(distribution, 'mailTemplateTypeId', $tc('swag-order-mail-distributor.detail.placeholderMailTemplate'))"
                                 :criteria="createTemplateTypeCriteria()"
+                                :error="distributionMailTemplateTypeIdError"
                                 v-model="distribution.mailTemplateTypeId"
                                 labelProperty="name"
                                 required>
