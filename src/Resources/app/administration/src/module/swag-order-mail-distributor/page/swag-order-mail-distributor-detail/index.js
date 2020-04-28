@@ -2,7 +2,7 @@ import template from './swag-order-mail-distributor-detail.html.twig';
 
 const { Criteria } = Shopware.Data;
 const { Component, Mixin } = Shopware;
-const { mapApiErrors } = Shopware.Component.getComponentHelper();
+const { mapPropertyErrors } = Shopware.Component.getComponentHelper();
 
 Component.register('swag-order-mail-distributor-detail', {
     template,
@@ -72,7 +72,7 @@ Component.register('swag-order-mail-distributor-detail', {
             };
         },
 
-        ...mapApiErrors('distribution', ['mailTo'])
+        ...mapPropertyErrors('distribution', ['mailTo'])
     },
 
     watch: {
@@ -123,16 +123,14 @@ Component.register('swag-order-mail-distributor-detail', {
                 }
 
                 this.loadEntityData();
-            }).catch((exception) => {
+            }).catch(() => {
                 this.isLoading = false;
-                const distributionName = this.distribution.name || this.distribution.translated.name;
                 this.createNotificationError({
                     title: this.$tc('global.default.error'),
                     message: this.$tc(
-                        'global.notification.notificationSaveErrorMessage', 0, { entityName: distributionName }
+                        'global.notification.notificationSaveErrorMessage', 0, { entityName: this.distribution.mailTo }
                     )
                 });
-                throw exception;
             });
         },
 
