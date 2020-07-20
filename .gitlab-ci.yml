@@ -3,8 +3,8 @@ variables:
     DOCKER_HOST: "tcp://docker:2375"
     MYSQL_ROOT_PASSWORD: app
     WEB_DOCUMENT_ROOT: $CI_PROJECT_DIR/development/public
-    DEVELOPMENT_BRANCH: "6.2"
-    PLATFORM_BRANCH: "6.2"
+    DEVELOPMENT_BRANCH: "master"
+    PLATFORM_BRANCH: "6.3.0.0"
 
 stages:
     - Static analyzes

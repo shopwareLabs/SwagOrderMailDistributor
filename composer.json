@@ -1,17 +1,17 @@
 {
     "name": "swag/order-mail-distributor",
     "description": "Order Mail Distributor for Shopware 6",
-    "version": "1.1.0",
+    "version": "1.2.0",
     "type": "shopware-platform-plugin",
     "license": "MIT",
     "authors": [
         {
-            "name": "shopware AG"
+            "name": "Shopware"
         }
     ],
     "require": {
-        "shopware/core": "6.2.0-RC1 || ~6.2.0",
-        "shopware/administration": "~6.2.0"
+        "shopware/core": "6.2.0-RC1 || ~6.2.0 || ~6.3.0",
+        "shopware/administration": "~6.2.0 || ~6.3.0"
     },
     "autoload": {
         "psr-4": {
