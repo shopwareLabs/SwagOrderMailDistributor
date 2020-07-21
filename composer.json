@@ -1,33 +1,45 @@
 {
-  "name": "swag/order-mail-distributor",
-  "description": "Order Mail Distributor for Shopware 6",
-  "version": "1.1.0",
-  "type": "shopware-platform-plugin",
-  "license": "MIT",
-  "authors": [
-      {
-          "name": "shopware AG"
-      }
-  ],
-  "require": {
-      "shopware/core": "6.2.0-RC1 || ~6.2.0",
-      "shopware/administration": "~6.2.0"
-  },
-  "autoload": {
-    "psr-4": {
-      "Swag\\OrderMailDistributor\\": "src/"
+    "name": "swag/order-mail-distributor",
+    "description": "Order Mail Distributor for Shopware 6",
+    "version": "1.1.0",
+    "type": "shopware-platform-plugin",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "shopware AG"
+        }
+    ],
+    "require": {
+        "shopware/core": "6.2.0-RC1 || ~6.2.0",
+        "shopware/administration": "~6.2.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Swag\\OrderMailDistributor\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Swag\\OrderMailDistributor\\Test\\": "tests/"
+        }
+    },
+    "extra": {
+        "shopware-plugin-class": "Swag\\OrderMailDistributor\\SwagOrderMailDistributor",
+        "label": {
+            "de-DE": "Order Mail Distributor",
+            "en-GB": "Order Mail Distributor"
+        },
+        "description": {
+            "de-DE": "Das Plugin Order Mail Distributor ermöglicht es weitere Mail-Empfänger zu registrieren, die im Falle einer Bestellung durch den Endkunden ebenfalls informiert werden.",
+            "en-GB": "With the Order Mail Distributor you can add additional order mail recipients which, will be informed when an order is placed by the customer."
+        },
+        "manufacturerLink": {
+            "de-DE": "https://store.shopware.com/shopware-ag.html",
+            "en-GB": "https://store.shopware.com/en/shopware-ag.html"
+        },
+        "supportLink": {
+            "de-DE": "https://issues.shopware.com/",
+            "en-GB": "https://issues.shopware.com/"
+        }
     }
-  },
-  "autoload-dev": {
-      "psr-4": {
-          "Swag\\OrderMailDistributor\\Test\\": "tests/"
-      }
-  },
-  "extra": {
-    "shopware-plugin-class": "Swag\\OrderMailDistributor\\SwagOrderMailDistributor",
-    "label": {
-      "de-DE": "Order Mail Distributor",
-      "en-GB": "Order Mail Distributor"
-    }
-  }
 }
