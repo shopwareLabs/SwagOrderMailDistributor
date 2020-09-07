@@ -1,3 +1,6 @@
+# 1.2.1
+- OMD-3 - Added compatibility for Shopware 6.3.1.0
+
 # 1.2.0
 - PT-11924 - Added compatibility for Shopware 6.3
 
