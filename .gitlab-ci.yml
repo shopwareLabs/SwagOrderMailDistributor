@@ -4,11 +4,12 @@ variables:
     MYSQL_ROOT_PASSWORD: app
     WEB_DOCUMENT_ROOT: $CI_PROJECT_DIR/development/public
     DEVELOPMENT_BRANCH: "master"
-    PLATFORM_BRANCH: "6.3.0.0"
+    PLATFORM_BRANCH: "master"
+    RUN_IN_MR: 'true'
 
 stages:
-    - Static analyzes
-    - PHPUnit
+    - Static analysis
+    - Testing
 
 default:
     image: shopware/development:latest
@@ -24,11 +25,14 @@ default:
 
 # Stage: Static analyzes
 Static analyze:
-    stage: Static analyzes
+    stage: Static analysis
     services:
         -   name: mysql:5.7
             alias: mysql
     script:
+        - echo matrix config
+        - echo DEVELOPMENT_BRANCH $DEVELOPMENT_BRANCH
+        - echo PLATFORM_BRANCH $PLATFORM_BRANCH
         - ./psh.phar init
         - php bin/console plugin:install --activate SwagOrderMailDistributor
         - cd $CI_PROJECT_DIR/development/custom/plugins/SwagOrderMailDistributor
@@ -38,20 +42,45 @@ Static analyze:
         - ./psh.phar administration:init --APP_ENV="dev"
         - cd $CI_PROJECT_DIR/development/custom/plugins/SwagOrderMailDistributor
         - ./../../../vendor/shopware/platform/src/Administration/Resources/app/administration/node_modules/.bin/eslint --ignore-path .eslintignore --config ../../../vendor/shopware/platform/src/Administration/Resources/app/administration/.eslintrc.js --ext .js,.vue .
-    artifacts:
-        reports:
-            junit: development/php-cs-fixer.xml
+    rules:
+        -   if: '$CI_COMMIT_BRANCH == "master"'
+        -   if: '$RUN_IN_MR == "true" && $CI_PIPELINE_SOURCE == "merge_request_event"'
+    parallel:
+        matrix:
+            -   PLATFORM_BRANCH: '6.3.0.0'
+                DEVELOPMENT_BRANCH: 'master'
+            -   PLATFORM_BRANCH: '6.3.0.2'
+                DEVELOPMENT_BRANCH: 'master'
+                RUN_IN_MR: 'false'
+            -   PLATFORM_BRANCH: '6.3.1.1'
+                DEVELOPMENT_BRANCH: 'master'
+                RUN_IN_MR: 'false'
+            -   PLATFORM_BRANCH: '6.3.2.0'
+                DEVELOPMENT_BRANCH: 'master'
+                RUN_IN_MR: 'false'
+            -   PLATFORM_BRANCH: 'master'
+                DEVELOPMENT_BRANCH: 'master'
 
-# Stage: PHPUnit
-.phpunit_base:
-    stage: PHPUnit
-    needs: [Static analyze]
+ToDos resolved:
+    only:
+        refs:
+            - merge_requests
+            - master
+    stage: Static analysis
+    allow_failure: true
+    script:
+        - cd $CI_PROJECT_DIR/development/custom/plugins/SwagOrderMailDistributor
+        - bin/check-todos.sh $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME
+
+PHPUnit Coverage (6.3.x.x dev):
+    only:
+        refs:
+            - merge_requests
+            - master
+    stage: Testing
     services:
-        -   name: mysql:5.7
+        -   name: mariadb:10.3
             alias: mysql
-        -   name: elastic/elasticsearch:7.1.1
-            alias: elasticsearch
-            command: [ "bin/elasticsearch", "-Expack.security.enabled=false", "-Ediscovery.type=single-node" ]
     script:
         - ./psh.phar init
         - php bin/console plugin:install --activate SwagOrderMailDistributor
@@ -64,7 +93,6 @@ Static analyze:
             --colors=never
             --coverage-clover build/artifacts/phpunit.clover.xml
             --coverage-html build/artifacts/phpunit-coverage-html
-            --coverage-text
 
     coverage: '/^\s*Lines:\s*(\d+(?:\.\d+)?%)/'
     artifacts:
@@ -73,6 +101,38 @@ Static analyze:
         reports:
             junit: development/build/artifacts/phpunit.junit.xml
 
-MySQL 5.7:
-    extends: .phpunit_base
-    stage: PHPUnit
+PHPUnit:
+    stage: Testing
+    services:
+        -   name: mysql:5.7
+            alias: mysql
+    script:
+        - echo matrix config
+        - echo DEVELOPMENT_BRANCH $DEVELOPMENT_BRANCH
+        - echo PLATFORM_BRANCH $PLATFORM_BRANCH
+        - ./psh.phar init
+        - php bin/console plugin:install --activate SwagOrderMailDistributor
+        - ./psh.phar init-test-databases
+        - cd $CI_PROJECT_DIR/development/custom/plugins/SwagOrderMailDistributor
+        - bin/phpunit.sh
+    rules:
+        -   if: '$CI_COMMIT_BRANCH == "master"'
+        -   if: '$RUN_IN_MR == "true" && $CI_PIPELINE_SOURCE == "merge_request_event"'
+    parallel:
+        matrix:
+            -   PLATFORM_BRANCH: '6.2'
+                DEVELOPMENT_BRANCH: '6.2'
+            -   PLATFORM_BRANCH: '6.3.0.0'
+                DEVELOPMENT_BRANCH: 'master'
+                RUN_IN_MR: 'false'
+            -   PLATFORM_BRANCH: '6.3.0.2'
+                DEVELOPMENT_BRANCH: 'master'
+                RUN_IN_MR: 'false'
+            -   PLATFORM_BRANCH: '6.3.1.1'
+                DEVELOPMENT_BRANCH: 'master'
+                RUN_IN_MR: 'false'
+            -   PLATFORM_BRANCH: '6.3.2.0'
+                DEVELOPMENT_BRANCH: 'master'
+                RUN_IN_MR: 'false'
+            -   PLATFORM_BRANCH: 'master'
+                DEVELOPMENT_BRANCH: 'master'
