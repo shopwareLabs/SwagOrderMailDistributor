@@ -1,3 +1,6 @@
+# REPLACE_GLOBALLY_WITH_NEXT_VERSION
+- OMD-5 - Added deprecation warning for Shopware 6.4 and higher
+
 # 1.2.1
 - OMD-3 - Added compatibility for Shopware 6.3.1.0
 

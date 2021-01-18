@@ -37,8 +37,14 @@ Static analyze:
         - php bin/console plugin:install --activate SwagOrderMailDistributor
         - cd $CI_PROJECT_DIR/development/custom/plugins/SwagOrderMailDistributor
         - bin/static-analyze.sh
+        - >
+            if [ -f "../../../vendor/shopware/platform/easy-coding-standard.php" ];
+            then
+                php ../../../dev-ops/analyze/vendor/bin/ecs check --config=../../../vendor/shopware/platform/easy-coding-standard.php src tests
+            else
+                php ../../../dev-ops/analyze/vendor/bin/ecs check --config=../../../vendor/shopware/platform/easy-coding-standard.yml src tests
+            fi;
         - cd $CI_PROJECT_DIR/development
-        - php dev-ops/analyze/vendor/bin/php-cs-fixer fix --config=vendor/shopware/platform/.php_cs.dist --dry-run -vvv --allow-risky=yes --format=junit custom/plugins/SwagOrderMailDistributor | tee php-cs-fixer.xml
         - ./psh.phar administration:init --APP_ENV="dev"
         - cd $CI_PROJECT_DIR/development/custom/plugins/SwagOrderMailDistributor
         - ./../../../vendor/shopware/platform/src/Administration/Resources/app/administration/node_modules/.bin/eslint --ignore-path .eslintignore --config ../../../vendor/shopware/platform/src/Administration/Resources/app/administration/.eslintrc.js --ext .js,.vue .
@@ -49,6 +55,7 @@ Static analyze:
         matrix:
             -   PLATFORM_BRANCH: '6.3.0.0'
                 DEVELOPMENT_BRANCH: 'master'
+                RUN_IN_MR: 'false'
             -   PLATFORM_BRANCH: '6.3.0.2'
                 DEVELOPMENT_BRANCH: 'master'
                 RUN_IN_MR: 'false'
