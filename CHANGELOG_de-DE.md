@@ -1,4 +1,4 @@
-# REPLACE_GLOBALLY_WITH_NEXT_VERSION
+# 1.3.0
 - OMD-5 - Abkündigungswarnung für Shopware 6.4 und höher hinzugefügt 
 
 # 1.2.1
