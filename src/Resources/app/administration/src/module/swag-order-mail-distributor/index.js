@@ -1,6 +1,8 @@
 import './page/swag-order-mail-distributor-list';
 import './page/swag-order-mail-distributor-detail';
 
+import './component/swag-order-mail-distributor-deprecation';
+
 const { Module } = Shopware;
 
 Module.register('swag-order-mail-distributor', {

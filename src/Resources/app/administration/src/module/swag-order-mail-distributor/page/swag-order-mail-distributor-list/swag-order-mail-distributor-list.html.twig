@@ -11,8 +11,10 @@
 
         {% block swag_order_mail_distributor_list_smart_bar_header %}
             <template #smart-bar-header>
+
                 {% block swag_order_mail_distributor_list_smart_bar_header_title %}
                     <h2>
+
                         {% block swag_order_mail_distributor_list_smart_bar_header_title_text %}
                             {{ $tc('swag-order-mail-distributor.list.textDistributionOverview') }}
                         {% endblock %}
@@ -22,8 +24,16 @@
                                 ({{ total }})
                             </span>
                         {% endblock %}
+
+                        {% block swag_order_mail_distributor_list_smart_bar_header_deprecation %}
+                            <swag-order-mail-distributor-deprecation
+                                variant="danger">
+                            </swag-order-mail-distributor-deprecation>
+                        {% endblock %}
+
                     </h2>
                 {% endblock %}
+
             </template>
         {% endblock %}
 

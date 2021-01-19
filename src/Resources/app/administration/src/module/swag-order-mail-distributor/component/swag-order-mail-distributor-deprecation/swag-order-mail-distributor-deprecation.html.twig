@@ -1,0 +1,13 @@
+{% block swag_order_mail_distributor_deprecation %}
+    <sw-label
+        v-bind="$attrs"
+        v-tooltip="tooltipConfig">
+        <slot>
+
+            {% block swag_order_mail_distributor_deprecation_slot_default %}
+                {{ $tc('swag-order-mail-distributor-deprecation.label') }}
+            {% endblock %}
+
+        </slot>
+    </sw-label>
+{% endblock %}

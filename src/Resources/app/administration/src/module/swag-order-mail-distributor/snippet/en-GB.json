@@ -2,7 +2,17 @@
   "global": {
     "entities": {
       "order_mail_distribution": "Order Mail Distribution"
+    },
+    "unsupported-plugin-warning": {
+      "order-mail-distributor": {
+        "title": "Warning",
+        "description": "The plugin \"Order mail distributor\" is deprecated and unsupported by Shopware 6.4 or higher. From 6.3 on the plugin's function is part of Shopware by default and can be accessed via settings \"Business Events\"."
+      }
     }
+  },
+  "swag-order-mail-distributor-deprecation":{
+    "label": "Plugin deprecated",
+    "message":  "The plugin is deprecated and unsupported by Shopware 6.4 or higher. With Shopware 6.3 onwards the functionality is included by default under settings \"Business Events\"."
   },
   "swag-order-mail-distributor": {
     "general": {

@@ -9,7 +9,8 @@ Component.register('swag-order-mail-distributor-list', {
     inject: ['repositoryFactory'],
 
     mixins: [
-        Mixin.getByName('listing')
+        Mixin.getByName('listing'),
+        Mixin.getByName('notification')
     ],
 
     data() {

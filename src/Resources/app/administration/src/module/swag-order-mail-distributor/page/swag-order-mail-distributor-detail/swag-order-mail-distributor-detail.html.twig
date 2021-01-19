@@ -3,7 +3,16 @@
 
         {% block swag_order_mail_distributor_detail_header %}
             <template #smart-bar-header>
-                <h2>{{ placeholder(distribution, 'mailTo', $tc('swag-order-mail-distributor.detail.textHeadline')) }}</h2>
+                <h2>
+                    {{ placeholder(distribution, 'mailTo', $tc('swag-order-mail-distributor.detail.textHeadline')) }}
+
+                    {% block swag_order_mail_distributor_detail_header_deprecation %}
+                        <swag-order-mail-distributor-deprecation
+                            variant="danger">
+                        </swag-order-mail-distributor-deprecation>
+                    {% endblock %}
+
+                </h2>
             </template>
         {% endblock %}
 
